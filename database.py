@@ -1,7 +1,7 @@
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy import *
 from sqlalchemy.ext.declarative import declarative_base
-from configuration import *
+import configuration
 
 Base = declarative_base()
 
@@ -30,8 +30,8 @@ class Activity(Base):
 
 class ActivitySaver:
     def __init__(self):
-        self.engine = create_engine(databaseData,
-                                    connect_args={'options': '-csearch_path={}'.format(schemaName)}, echo=True)
+        self.engine = create_engine(configuration.databaseData,
+                                    connect_args={'options': '-csearch_path={}'.format(configuration.schemaName)}, echo=True)
         Base.metadata.create_all(self.engine)
         Session = sessionmaker(bind=self.engine)
         self.session = Session()

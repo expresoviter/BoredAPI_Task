@@ -1,5 +1,6 @@
 import argparse
 import wrapper
+import database
 
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
@@ -18,10 +19,13 @@ if __name__ == "__main__":
     args = ap.parse_args().__dict__
     command = args['command']
     del args['command']
-    saver = wrapper.ActivitySaver()
+    saver = database.ActivitySaver()
     if command == "new":
         api = wrapper.APIWrapper()
         result = api.request(args)
-        saver.saveActivity(result)
+        if len(result) != 1:
+            saver.saveActivity(result)
+        else:
+            print("There is an error.")
     elif command == "list":
         saver.getLatestActivities()
