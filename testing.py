@@ -47,4 +47,3 @@ class TestingDatabase(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
-    #Input validation and CLI tests
